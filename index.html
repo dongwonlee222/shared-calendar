@@ -275,9 +275,9 @@
       background: white;
       color: var(--ink);
       border-radius: 12px;
-      padding: 10px 14px;
+      padding: 8px 12px;
       font: inherit;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       cursor: pointer;
       transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
@@ -296,6 +296,12 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
+    }
+
+    .calendar-panel-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
     }
 
     .settings-panel[hidden] {
@@ -1647,12 +1653,14 @@
             </div>
           </div>
         </div>
-        <button type="button" id="settings-toggle" class="settings-toggle">설정</button>
       </div>
     </section>
 
     <section class="layout">
       <section class="calendar-panel">
+        <div class="calendar-panel-toolbar">
+          <button type="button" id="settings-toggle" class="settings-toggle">보기 설정</button>
+        </div>
         <div id="settings-panel" class="calendar-controls settings-panel" hidden>
           <div id="timebox" class="timebox" hidden>
             <label for="time-step-select">Step</label>
