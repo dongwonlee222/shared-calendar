@@ -47,14 +47,14 @@
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto auto;
       gap: 14px;
-      align-items: center;
+      align-items: end;
       margin-bottom: 18px;
     }
 
     .topbar-controls {
       display: flex;
       gap: 14px;
-      align-items: stretch;
+      align-items: flex-end;
       justify-content: flex-end;
       flex-wrap: wrap;
     }
@@ -143,7 +143,7 @@
     .weekbox,
     .timebox,
     .filters {
-      padding: 14px 16px;
+      padding: 12px 14px;
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.7);
       border: 1px solid rgba(29, 43, 41, 0.08);
@@ -154,7 +154,7 @@
     .weekbox {
       display: grid;
       align-content: start;
-      min-height: 86px;
+      min-height: 76px;
     }
 
     .monthbox label,
@@ -164,9 +164,9 @@
     .filters h2,
     .agenda h2,
     .summary h2 {
-      margin: 0 0 10px;
+      margin: 0 0 8px;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -197,10 +197,10 @@
       border: 0;
       background: transparent;
       color: var(--muted);
-      padding: 9px 12px;
+      padding: 8px 11px;
       border-radius: 10px;
       font: inherit;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       cursor: pointer;
       transition: background-color 0.16s ease, color 0.16s ease, transform 0.16s ease;
@@ -254,10 +254,10 @@
       background: white;
       color: var(--ink);
       border-radius: 12px;
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
       font: inherit;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       cursor: pointer;
       transition: background-color 0.16s ease, border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
