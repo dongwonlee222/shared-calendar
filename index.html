@@ -88,13 +88,6 @@
       font-size: 13px;
     }
 
-    .weather-strip {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
-      gap: 12px;
-      margin-top: 14px;
-    }
-
     .weather-card {
       display: grid;
       gap: 8px;
@@ -104,6 +97,9 @@
         linear-gradient(135deg, rgba(15, 118, 110, 0.14), rgba(37, 99, 235, 0.08)),
         rgba(255, 255, 255, 0.72);
       border: 1px solid rgba(29, 43, 41, 0.08);
+      min-height: 86px;
+      align-content: start;
+      width: 320px;
     }
 
     .weather-head {
@@ -131,12 +127,12 @@
     .weather-now {
       display: flex;
       align-items: baseline;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .weather-temp {
-      font-size: clamp(26px, 2.8vw, 38px);
+      font-size: clamp(20px, 2vw, 28px);
       line-height: 1;
       letter-spacing: -0.05em;
       font-weight: 800;
@@ -144,34 +140,35 @@
 
     .weather-summary {
       color: var(--ink);
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     .weather-meta,
     .weather-forecast {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
     .weather-chip {
       display: inline-flex;
       align-items: center;
-      min-height: 34px;
-      padding: 8px 11px;
+      min-height: 28px;
+      padding: 6px 9px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.82);
       border: 1px solid rgba(29, 43, 41, 0.08);
       color: var(--ink);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
     }
 
     .weather-note {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1.45;
+      margin: 0;
     }
 
     .monthbox,
@@ -1439,8 +1436,8 @@
     }
 
     @media (max-width: 900px) {
-      .weather-strip {
-        grid-template-columns: 1fr;
+      .weather-card {
+        width: 100%;
       }
 
       .today-fab {
@@ -1644,36 +1641,23 @@
         <span class="eyebrow">Shared Calendar</span>
         <h1>공용 업무 캘린더</h1>
         <p class="sub">프로젝트별 일정을 켜고 끄면서 월간 일정과 오늘 기준 아젠다를 함께 본다.</p>
-        <div class="weather-strip" aria-live="polite">
-          <section class="weather-card">
-            <div class="weather-head">
-              <span class="weather-label">서울 현재 날씨</span>
-              <span id="weather-time" class="weather-time">서울 시간 불러오는 중</span>
-            </div>
-            <div class="weather-now">
-              <strong id="weather-temp" class="weather-temp">--°</strong>
-              <span id="weather-summary" class="weather-summary">날씨 불러오는 중</span>
-            </div>
-            <div class="weather-meta">
-              <span id="weather-feels-like" class="weather-chip">체감 --°</span>
-              <span id="weather-humidity" class="weather-chip">습도 --%</span>
-              <span id="weather-rain-now" class="weather-chip">강수 --mm</span>
-            </div>
-          </section>
-          <section class="weather-card">
-            <div class="weather-head">
-              <span class="weather-label">오늘 예보</span>
-              <span class="weather-time">서울 기준</span>
-            </div>
-            <div class="weather-forecast">
-              <span id="weather-high-low" class="weather-chip">최고 --° / 최저 --°</span>
-              <span id="weather-rain-prob" class="weather-chip">강수확률 --%</span>
-            </div>
-            <p id="weather-note" class="weather-note">예보를 불러오는 중이다.</p>
-          </section>
-        </div>
       </div>
       <div class="topbar-controls">
+        <section class="weather-card" aria-live="polite">
+          <div class="weather-head">
+            <span class="weather-label">서울 날씨</span>
+            <span id="weather-time" class="weather-time">불러오는 중</span>
+          </div>
+          <div class="weather-now">
+            <strong id="weather-temp" class="weather-temp">--°</strong>
+            <span id="weather-summary" class="weather-summary">날씨 불러오는 중</span>
+          </div>
+          <div class="weather-forecast">
+            <span id="weather-high-low" class="weather-chip">최고 --° / 최저 --°</span>
+            <span id="weather-rain-prob" class="weather-chip">강수확률 --%</span>
+          </div>
+          <p id="weather-note" class="weather-note">예보를 불러오는 중이다.</p>
+        </section>
         <div class="viewbox">
           <label>View</label>
           <div class="view-switch" role="tablist" aria-label="calendar view switch">
@@ -1990,9 +1974,6 @@
     const weatherTime = document.getElementById("weather-time");
     const weatherTemp = document.getElementById("weather-temp");
     const weatherSummary = document.getElementById("weather-summary");
-    const weatherFeelsLike = document.getElementById("weather-feels-like");
-    const weatherHumidity = document.getElementById("weather-humidity");
-    const weatherRainNow = document.getElementById("weather-rain-now");
     const weatherHighLow = document.getElementById("weather-high-low");
     const weatherRainProb = document.getElementById("weather-rain-prob");
     const weatherNote = document.getElementById("weather-note");
@@ -2171,12 +2152,9 @@
 
         weatherTemp.textContent = formatWeatherTemp(current.temperature_2m);
         weatherSummary.textContent = currentLabel;
-        weatherFeelsLike.textContent = `체감 ${formatWeatherTemp(current.apparent_temperature)}`;
-        weatherHumidity.textContent = `습도 ${typeof current.relative_humidity_2m === "number" ? Math.round(current.relative_humidity_2m) : "--"}%`;
-        weatherRainNow.textContent = `강수 ${typeof current.precipitation === "number" ? current.precipitation.toFixed(1) : "--"}mm`;
         weatherHighLow.textContent = `최고 ${formatWeatherTemp(todayMax)} / 최저 ${formatWeatherTemp(todayMin)}`;
         weatherRainProb.textContent = `강수확률 ${typeof todayRainProb === "number" ? Math.round(todayRainProb) : "--"}%`;
-        weatherNote.textContent = `오늘은 ${todayLabel} 예상이다.`;
+        weatherNote.textContent = `체감 ${formatWeatherTemp(current.apparent_temperature)} · 습도 ${typeof current.relative_humidity_2m === "number" ? Math.round(current.relative_humidity_2m) : "--"}% · ${todayLabel}`;
       } catch (error) {
         console.error("Failed to fetch Seoul weather", error);
         weatherSummary.textContent = "날씨 정보를 가져오지 못했다";
