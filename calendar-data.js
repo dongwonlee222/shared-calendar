@@ -48,6 +48,54 @@ window.CALENDAR_DATA = {
       status: "확정"
     },
     {
+      id: "gg-test-session",
+      project: "golden-goose",
+      tag: "project_milestone",
+      owner: "황금거위",
+      title: "황금거위 테스트",
+      start: "2026-04-09",
+      end: "2026-04-09",
+      startTime: "15:30",
+      endTime: "16:30",
+      status: "예정"
+    },
+    {
+      id: "mc-strategy-session",
+      project: "modu-charge",
+      tag: "project_milestone",
+      owner: "모두의충전",
+      title: "모두의충전 전략",
+      start: "2026-04-10",
+      end: "2026-04-10",
+      startTime: "10:00",
+      endTime: "11:30",
+      status: "예정"
+    },
+    {
+      id: "mc-improvement-review",
+      project: "modu-charge",
+      tag: "review",
+      owner: "모두의충전",
+      title: "모두의충전 개선포인트 찾기",
+      start: "2026-04-10",
+      end: "2026-04-10",
+      startTime: "12:30",
+      endTime: "14:30",
+      status: "예정"
+    },
+    {
+      id: "gg-test-kickoff",
+      project: "golden-goose",
+      tag: "project_milestone",
+      owner: "황금거위",
+      title: "테스트 시작",
+      start: "2026-04-10",
+      end: "2026-04-10",
+      startTime: "14:30",
+      endTime: "17:00",
+      status: "예정"
+    },
+    {
       id: "ec-cha-dev",
       project: "environment-corp",
       tag: "project_milestone",
