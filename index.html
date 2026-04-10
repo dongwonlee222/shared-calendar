@@ -88,86 +88,53 @@
       font-size: 13px;
     }
 
-    .weather-card {
-      display: grid;
-      gap: 8px;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background:
-        linear-gradient(135deg, rgba(15, 118, 110, 0.14), rgba(37, 99, 235, 0.08)),
-        rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(29, 43, 41, 0.08);
-      min-height: 86px;
-      align-content: start;
-      width: 320px;
-    }
-
-    .weather-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .weather-label {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
     .weather-time {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
     }
 
-    .weather-now {
-      display: flex;
-      align-items: baseline;
+    .weather-inline {
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
       flex-wrap: wrap;
+      margin-top: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid rgba(29, 43, 41, 0.08);
     }
 
     .weather-temp {
-      font-size: clamp(20px, 2vw, 28px);
+      font-size: 15px;
       line-height: 1;
-      letter-spacing: -0.05em;
       font-weight: 800;
     }
 
     .weather-summary {
       color: var(--ink);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-    }
-
-    .weather-meta,
-    .weather-forecast {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
     }
 
     .weather-chip {
       display: inline-flex;
       align-items: center;
-      min-height: 28px;
-      padding: 6px 9px;
+      min-height: 22px;
+      padding: 3px 8px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(15, 118, 110, 0.08);
       border: 1px solid rgba(29, 43, 41, 0.08);
       color: var(--ink);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
     }
 
     .weather-note {
       color: var(--muted);
       font-size: 11px;
-      line-height: 1.45;
+      line-height: 1.2;
       margin: 0;
     }
 
@@ -1436,8 +1403,9 @@
     }
 
     @media (max-width: 900px) {
-      .weather-card {
+      .weather-inline {
         width: 100%;
+        border-radius: 14px;
       }
 
       .today-fab {
@@ -1641,23 +1609,17 @@
         <span class="eyebrow">Shared Calendar</span>
         <h1>공용 업무 캘린더</h1>
         <p class="sub">프로젝트별 일정을 켜고 끄면서 월간 일정과 오늘 기준 아젠다를 함께 본다.</p>
+        <div class="weather-inline" aria-live="polite">
+          <span class="weather-time">서울</span>
+          <strong id="weather-temp" class="weather-temp">--°</strong>
+          <span id="weather-summary" class="weather-summary">날씨 불러오는 중</span>
+          <span id="weather-high-low" class="weather-chip">최고 --° / 최저 --°</span>
+          <span id="weather-rain-prob" class="weather-chip">강수확률 --%</span>
+          <span id="weather-note" class="weather-note">예보를 불러오는 중이다.</span>
+          <span id="weather-time" class="weather-time">불러오는 중</span>
+        </div>
       </div>
       <div class="topbar-controls">
-        <section class="weather-card" aria-live="polite">
-          <div class="weather-head">
-            <span class="weather-label">서울 날씨</span>
-            <span id="weather-time" class="weather-time">불러오는 중</span>
-          </div>
-          <div class="weather-now">
-            <strong id="weather-temp" class="weather-temp">--°</strong>
-            <span id="weather-summary" class="weather-summary">날씨 불러오는 중</span>
-          </div>
-          <div class="weather-forecast">
-            <span id="weather-high-low" class="weather-chip">최고 --° / 최저 --°</span>
-            <span id="weather-rain-prob" class="weather-chip">강수확률 --%</span>
-          </div>
-          <p id="weather-note" class="weather-note">예보를 불러오는 중이다.</p>
-        </section>
         <div class="viewbox">
           <label>View</label>
           <div class="view-switch" role="tablist" aria-label="calendar view switch">
@@ -2121,7 +2083,7 @@
 
     function updateWeatherClock() {
       const now = new Date();
-      weatherTime.textContent = `서울 ${new Intl.DateTimeFormat("ko-KR", {
+      weatherTime.textContent = new Intl.DateTimeFormat("ko-KR", {
         month: "long",
         day: "numeric",
         weekday: "short",
@@ -2129,7 +2091,7 @@
         minute: "2-digit",
         hour12: false,
         timeZone: "Asia/Seoul"
-      }).format(now)}`;
+      }).format(now);
     }
 
     async function fetchSeoulWeather() {
